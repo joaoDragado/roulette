@@ -22,7 +22,9 @@ def test_bins():
     b1 = Bin([o1,o14])
     b2 = Bin([o2,o14])
     b3 = Bin([o4,o5,o6,o8,o10,o11,o12,o13,o14,o15,o17,o18])
+    # check class Bin extends frozenset
     assert issubclass(Bin, frozenset)
+    # check Bin instances subclass frozenset
     assert isinstance(b1,frozenset)
     assert isinstance(b2,frozenset)
     assert isinstance(b3,frozenset)
