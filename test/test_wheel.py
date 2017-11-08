@@ -16,10 +16,6 @@ def test_addOutcomes():
     wheel.addOutcome(0,o5)
     wheel.addOutcome(37,o37)
     wheel.addOutcome(37,o5)
-    
-    
-    
-def test_wheel():
     assert o0 in wheel.bins[0]
     assert o5 in wheel.bins[0]
     assert o37 in wheel.bins[37]
