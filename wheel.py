@@ -15,7 +15,7 @@ class Wheel(object):
         '''instatiate the wheel bin;
            provide the option of setting a seed for the random generator;
            the arg seed=None seeds from current time.'''
-        self.bins = tuple(Bin() for i in range(38))
+        self.bins = {i:Bin() for i in range(38)}
         if rng is None:
             rng = random.Random()
             rng.seed(seed)
