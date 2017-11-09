@@ -1,4 +1,5 @@
 from .outcome import Outcome
+import inspect
 
 class binBuilder(object):
     '''class that generates the roulette bins
@@ -8,11 +9,13 @@ class binBuilder(object):
         pass
         
     def buildBins(self, wheel):
-        '''Creates the Outcome instances and 
-        uses the addOutcome() method to place 
-        each Outcome in the appropropriate 
-        Bin of wheel .'''
-        pass
+        '''Calls all the generator methods of the class object,
+        using the standard library module inspect'''
+        # using the inspect library to introspect the class object components 
+        methods = inspect.getmembers(self, inspect.ismethod)
+        for (name, func) in methods:
+            if name.startswith('gen_'):
+                func(wheel)
     
     def gen_straight_bets(self, wheel):
         '''generates straight bets.'''
