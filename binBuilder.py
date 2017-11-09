@@ -1,7 +1,7 @@
 from .outcome import Outcome
 import inspect
 
-class binBuilder(object):
+class BinBuilder(object):
     '''class that generates the roulette bins
     and populates them with their corresponding
     outcomes.'''

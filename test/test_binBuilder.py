@@ -1,5 +1,5 @@
 import pytest
-from ..binBuilder import binBuilder
+from ..binBuilder import BinBuilder
     
 def test_buildBins():
     pass
