@@ -23,7 +23,7 @@ class Wheel(object):
         self.rng = rng
         '''container for all possible outcomes.
         There are 152 discrete outcomes.'''
-        self.all_outcomes = set()
+        self.all_outcomes = {}
         BinBuilder().buildBins(self)
    
 
@@ -32,14 +32,15 @@ class Wheel(object):
         to the Bin with the given number,
         to the all_outcomes container.'''
         self.bins[number] |= frozenset([outcome])
-        self.all_outcomes.add(outcome)
+        self.all_outcomes[outcome.name] = outcome
 
 
     def getOutcome(self, name):
         '''obtain all possible outcomes based on their name ; name can be either str ot int type.
         returns a set of outocomes'''
-        possibles = set([o for o in self.all_outcomes if o.name.lower().startswith(str(name))])
-        return possibles
+        #possibles = [o for o in self.all_outcomes if #o.name == name]
+        #return possibles[0]
+        return self.all_outcomes[name]
 
 
     def next(self):
