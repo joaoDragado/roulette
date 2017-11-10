@@ -22,6 +22,9 @@ class BinBuilder(object):
         for i in range(1,37):
             outcome = Outcome(str(i), 35)
             wheel.addOutcome(i, outcome)
+        wheel.addOutcome(0, Outcome('0',35))
+        wheel.addOutcome(37, Outcome('00',35))
+        
         
     def gen_split_bets(self, wheel):
         '''generates split bets.'''
@@ -36,7 +39,7 @@ class BinBuilder(object):
             wheel.addOutcome(i, outcome)
             wheel.addOutcome(i+1, outcome)
         # vertical splits:
-        for i in range(1, 33):
+        for i in range(1, 34):
             outcome = Outcome('{},{}'.format(i, i+3), 17)
             wheel.addOutcome(i, outcome)
             wheel.addOutcome(i + 3, outcome)
@@ -144,11 +147,9 @@ class BinBuilder(object):
                 wheel.addOutcome(i, black)
 
 
-    def gen_zeros_bets(self, wheel):
+    def gen_five_bets(self, wheel):
         '''generates the bets associated with
         the zero and double zero bins.'''
-        wheel.addOutcome(0, Outcome('0',35))
-        wheel.addOutcome(37, Outcome('00',35))
         wheel.addOutcome(0, Outcome('00-0-1-2-3',6))
         wheel.addOutcome(37, Outcome('00-0-1-2-3',6))
 
