@@ -22,37 +22,24 @@ class BinBuilder(object):
         for i in range(1,37):
             outcome = Outcome(str(i), 35)
             wheel.addOutcome(i, outcome)
-        wheel.addOutcome(0, Outcome('0', 35))
-        wheel.addOutcome(37, Outcome('00', 35))
-
+        
     def gen_split_bets(self, wheel):
         '''generates split bets.'''
-        # center interior column
-        for i in range(5,33,3):
-            ou = Outcome('{},{}'.format(i-3, i), 17)
-            od = Outcome('{},{}'.format(i, i+3), 17)
-            od = Outcome('{},{}'.format(i, i+1), 17)
-            og = Outcome('{},{}'.format(i-1, i), 17)
-            wheel.addOutcome(i, ou)
-            wheel.addOutcome(i, od)
-            wheel.addOutcome(i, od)
-            wheel.addOutcome(i, og)
-        # edge corners
-        wheel.addOutcome(1, Outcome('1,2', 17))
-        wheel.addOutcome(1, Outcome('1,4', 17))
-        wheel.addOutcome(3, Outcome('2,3', 17))
-        wheel.addOutcome(3, Outcome('3,6', 17))
-        wheel.addOutcome(34, Outcome('31,34', 17))
-        wheel.addOutcome(34, Outcome('34,35', 17))
-        wheel.addOutcome(36, Outcome('33,36', 17))
-        wheel.addOutcome(36, Outcome('35,36', 17))
-        # center col edge nums
-        wheel.addOutcome(2, Outcome('1,2', 17))
-        wheel.addOutcome(2, Outcome('2,3', 17))
-        wheel.addOutcome(2, Outcome('2,5', 17))
-        wheel.addOutcome(35, Outcome('34,35', 17))
-        wheel.addOutcome(35, Outcome('35,36', 17))
-        wheel.addOutcome(35, Outcome('32,35', 17))
+        # columns 1-2 row splits:
+        for i in range(1,35,3):
+            outcome = Outcome('{},{}'.format(i, i+1), 17)
+            wheel.addOutcome(i, outcome)
+            wheel.addOutcome(i+1, outcome)
+        # columns 2-3 row splits:
+        for i in range(2,36,3):
+            outcome = Outcome('{},{}'.format(i, i+1), 17)
+            wheel.addOutcome(i, outcome)
+            wheel.addOutcome(i+1, outcome)
+        # vertical splits:
+        for i in range(1, 33):
+            outcome = Outcome('{},{}'.format(i, i+3), 17)
+            wheel.addOutcome(i, outcome)
+            wheel.addOutcome(i + 3, outcome)
             
 
     def gen_street_bets(self, wheel):
@@ -99,9 +86,6 @@ class BinBuilder(object):
         wheel.addOutcome(35, Outcome('31,32,34,35', 8))
         wheel.addOutcome(35, Outcome('32,33,35,36', 8))
         wheel.addOutcome(36, Outcome('32,33,35,36', 8))
-
-
-            
         
 
     def gen_line_bets(self, wheel):
@@ -109,7 +93,7 @@ class BinBuilder(object):
         # use left column numbers as anchors
         for i in range(1,32,3):
             line = list(range(i,i+6))
-            outcome = Outcome(','.join([str(x)for x in line], 5))
+            outcome = Outcome(','.join([str(x)for x in line]), 5)
             for j in line:
                 wheel.addOutcome(j, outcome)
 
