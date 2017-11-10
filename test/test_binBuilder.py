@@ -82,5 +82,5 @@ def test_buildBins():
     assert len(wheel.get(35)) == 13
     assert len(wheel.get(0)) == 2
     assert len(wheel.get(37)) == 2
-    
+    assert len(wheel.all_outcomes) == 152
 

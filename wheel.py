@@ -20,12 +20,18 @@ class Wheel(object):
             rng = random.Random()
             rng.seed(seed)
         self.rng = rng
+        '''container for all possible outcomes.
+        There are 152 discrete outcomes.'''
+        self.all_outcomes = set()
         
     
 
     def addOutcome(self, number, outcome):
-        '''Adds the given Outcome to the Bin with the given number.'''
+        '''Adds the given Outcome : 
+        to the Bin with the given number,
+        to the all_outcomes container.'''
         self.bins[number] |= frozenset([outcome])
+        self.all_outcomes.add(outcome)
 
 
     def next(self):
