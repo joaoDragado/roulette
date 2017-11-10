@@ -1,5 +1,6 @@
 import random
 from .bin import Bin
+from .binBuilder import BinBuilder
 
 class Wheel(object):
     ''' Wheel Class
@@ -23,6 +24,7 @@ class Wheel(object):
         '''container for all possible outcomes.
         There are 152 discrete outcomes.'''
         self.all_outcomes = set()
+        BinBuilder().buildBins(self)
    
 
     def addOutcome(self, number, outcome):
@@ -34,11 +36,9 @@ class Wheel(object):
 
 
     def getOutcome(self, name):
-        '''obtain all possible outcomes based on their name.
-        name can be either str ot int type.'''
+        '''obtain all possible outcomes based on their name ; name can be either str ot int type.
+        returns a set of outocomes'''
         possibles = set([o for o in self.all_outcomes if o.name.lower().startswith(str(name))])
-        if len(possibles) == 1 :
-            return possibles[0]
         return possibles
 
 
