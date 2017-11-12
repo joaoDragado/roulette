@@ -14,16 +14,28 @@ dzero = Bet(100, wheel.getOutcome('00'))
 def test_wheel_get():
     print(wheel.getOutcome('Low'))
     print(wheel.getOutcome('00'))
-    assert 0
+    # change to 0 to see the print statements
+    assert 1
     
 def test_print_bets():
     print(split47)
     print(line7)
     print(low)
     print(dzero)
-    assert 0
+    # change to 0 to see the print statements
+    assert 1
 
+def test_winAmount():
+    assert split47.winAmount() == 1800
+    assert line7.winAmount() == 1200
+    assert low.winAmount() == 200
+    assert dzero.winAmount() == 3600
 
+def test_loseAmount():
+    assert split47.loseAmount() == 100
+    assert line7.loseAmount() == 100
+    assert low.loseAmount() == 100
+    assert dzero.loseAmount() == 100
 
 
 
