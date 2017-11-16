@@ -4,11 +4,13 @@ class Bet(object):
     def __init__(self, amount, outcome):
         self.amountBet = amount
         self.outcome = outcome
+        
 
     def winAmount(self):
         '''returns the amount won, plus the original stake'''
         return self.amountBet * (self.outcome.odds + 1)
-
+    
+    # this method will become obsolete, since when a player places a bet, the amount will be deducted from his/her stake.
     def loseAmount(self):
         '''returns the amount lost, aka the original stake.'''
         return self.amountBet
