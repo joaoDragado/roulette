@@ -24,5 +24,5 @@ class Bet(object):
         return 'Bet({},{})'.format(self.amount, self.outcome)
 
 class InvalidBet(Exception):
-    '''Exception subclass raised on table limits violation.'''
+    '''class extending Exception superclass, raised on table limits violation.'''
     pass
