@@ -1,4 +1,4 @@
-
+from .bet import InvalidBet
 
 class Table(object):
     '''
@@ -8,21 +8,45 @@ class Table(object):
 
     We will want to segregate validation as a separate method, or sequence of methods. This is used by the Game just prior to spinning the wheel 
     '''
-    def __init__(self, minimum=0, limit=0 ):
+    def __init__(self, minimum=0, limit=10000 ):
         # container for all bets
         self.bets = []
         self.minimum = minimum
         self.limit = limit
-    
+
+    def isValid(self, bet):
+        '''Evaluates bet on house limits :
+        - The sum of all bets is less than or equal to the table limit.
+        - All bet amounts are greater than or equal to the table minimum.'''
+        pot = bet.amount
+        for i in self.bets:
+            pot += i.amount
+        return (self.minimum <= bet.amount ) & (pot <= self.limit )
+
     def placeBet(self, bet):
         '''Adds this bet to the list of working bets.
         Should incorporate a try/except block to
         evaluate bet on table limits.'''
+        if not self.isValid(bet):
+            raise InvalidBet()
         self.bets.append(bet)
 
     def __iter__(self):
-        '''Returns an iterator over the available list of Bet instances using a copy of the table's bets, via self.bets[:]'''
-        pass
+        '''Returns an iterator object of a copy of the table's bets, via self.bets[:] ; 
+        is implicitly called at the start of loops.'''
+        self._it = self.bets[:]
+        self._it.reverse()
+        #return iter(self._it)
+        return self
+
+    def __next__(self):
+        '''The __next__() method returns the next value and is implicitly called at each loop increment.'''
+        try:
+            result = self._it.pop()
+        except IndexError:
+            raise StopIteration
+        return result
+
 
     def __str__(self):
         '''Return an easy-to-read string representation of all current bets.'''
@@ -32,8 +56,3 @@ class Table(object):
         '''Return a representation of the form Table( bet, bet, ... ).'''
         pass
     
-    def isValid(self):
-        '''Raises an InvalidBet exception if the bets don’t pass the table limit rules, ensuring that :
-        - The sum of all bets is less than or equal to the table limit.
-        - All bet amounts are greater than or equal to the table minimum.'''
-        pass
