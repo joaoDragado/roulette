@@ -35,14 +35,12 @@ class Table(object):
         '''Returns an iterator object of a copy of the table's bets, via self.bets[:] ; 
         is implicitly called at the start of loops.'''
         self._it = self.bets[:]
-        self._it.reverse()
-        #return iter(self._it)
-        return self
-
+        return iter(self._it)
+        
     def __next__(self):
         '''The __next__() method returns the next value and is implicitly called at each loop increment.'''
         try:
-            result = self._it.pop()
+            result = next(self._it)
         except IndexError:
             raise StopIteration
         return result
@@ -50,9 +48,9 @@ class Table(object):
 
     def __str__(self):
         '''Return an easy-to-read string representation of all current bets.'''
-        pass
+        return ' | '.join(str(x) for x in self.bets)
 
     def __repr__(self):
         '''Return a representation of the form Table( bet, bet, ... ).'''
-        pass
+        return 'Table( ' + ', '.join(str(x) for x in self.bets) + ' )'
     

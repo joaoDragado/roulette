@@ -16,3 +16,9 @@ def test_iter():
     for i, b in enumerate(tbl):
         assert bets[i] == b
     
+def test_str():
+    tbl.placeBet(low)
+    tbl.placeBet(dzero)
+    print(tbl)
+    # use assert 0 to view the print statements
+    assert 1
