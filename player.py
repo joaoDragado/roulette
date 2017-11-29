@@ -44,7 +44,7 @@ class Passenger57(object):
 
     def placeBets(self):
         '''Updates the Table with the various bets. This version creates a Bet instance from the black Outcome. 
-        It uses Table placeBet() to place that bet.'''
+        It uses Table.placeBet() to place that bet.'''
         onBlack = Bet(amount=1, self.black)
         self.table.placeBet(onBlack)
 
