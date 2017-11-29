@@ -43,3 +43,14 @@ class Outcome(object):
         The product is returned.'''
         return self.odds * amount
 
+
+class PrisonOutcome(Outcome):
+    '''subclass of Outcome, to cater for the en-prison rule in European Casinos :
+    all losing bets are split ; only half the money is lost, the other half is termed a “push” and is returned to the player.'''
+    
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+    
+    def loseAmount(self, amount):
+        pass
+    

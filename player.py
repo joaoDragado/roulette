@@ -53,8 +53,8 @@ class Passenger57(object):
         '''Notification from the Game that the Bet was a winner. 
         The amount of money won is available via the
         winAmount() method of the Bet.'''
-        bet.winAmount()
+        return f'Bet wins {bet.winAmount()}.'
     
     def lose(self, bet):
         '''Notification from the Game that the Bet was a loser.'''
-        bet.loseAmount()
+        return 'Bet loses.'
