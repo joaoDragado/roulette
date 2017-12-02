@@ -2,9 +2,9 @@ import pytest
 from ..outcome import Outcome
 from ..bet import Bet
 from ..binBuilder import BinBuilder
-from ..wheel import Wheel
+from ..wheel import create_wheel
 
-wheel = Wheel()
+wheel = create_wheel()
 
 split47 = Bet(100, wheel.getOutcome('4,7'))
 line7 = Bet(100, wheel.getOutcome('7,8,9'))

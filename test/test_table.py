@@ -1,9 +1,12 @@
 import pytest
 from ..table import Table
 from ..bet import Bet
+from ..binBuilder import BinBuilder
 from ..wheel import Wheel
 
 wheel = Wheel()
+BinBuilder().buildBins(wheel)
+
 low = Bet(100, wheel.getOutcome('Low'))
 dzero = Bet(100, wheel.getOutcome('00'))
 bets = [low, dzero]
