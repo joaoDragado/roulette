@@ -2,13 +2,13 @@ from .bet import InvalidBet
 
 class Table(object):
     '''
-    Table contains all the Bet s created by the Player. 
+    Table contains all the Bets created by the Player. 
     Table has a betting minimum foe ach bet ; 
     Table also has a betting limit, and the sum of all of a player’s bets must be less than or equal to this limit. We assume a single Player in the simulation.
 
     We will want to segregate validation as a separate method, or sequence of methods. This is used by the Game just prior to spinning the wheel 
     '''
-    def __init__(self, minimum=0, limit=10000 ):
+    def __init__(self, minimum=0, limit=10000):
         # container for all bets
         self.bets = []
         self.minimum = minimum
