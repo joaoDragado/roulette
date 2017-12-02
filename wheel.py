@@ -24,7 +24,8 @@ class Wheel(object):
         '''container for all possible outcomes.
         There are 152 discrete outcomes.'''
         self.all_outcomes = {}
-        BinBuilder().buildBins(self)
+        # the call below has been moved to create_wheel
+        #BinBuilder().buildBins(self)
    
 
     def addOutcome(self, number, outcome):
@@ -52,6 +53,12 @@ class Wheel(object):
         '''Returns the given Bin from the internal collection.'''
         return self.bins[bin]
     
+def create_wheel(rng=None, seed=None):
+    '''function that acts as a wheel constructor; options to provide random generator, as well as seed value.
+    function calls BinBuilder, and returns a fully populated wheel.'''
+    wheel = Wheel(rng=rng, seed=seed)
+    BinBuilder().buildBins(wheel)
+    return wheel
 
     
 
