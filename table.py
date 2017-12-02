@@ -1,4 +1,5 @@
 from .bet import InvalidBet
+from .wheel import create_wheel
 
 class Table(object):
     '''
@@ -52,5 +53,11 @@ class Table(object):
 
     def __repr__(self):
         '''Return a representation of the form Table( bet, bet, ... ).'''
-        return 'Table( ' + ', '.join(str(x) for x in self.bets) + ' )'
-    
+        return 'Table(' + ', '.join(str(x) for x in self.bets) + ')'
+
+
+def create_table():
+    '''fucntion that constructs a virtual roulette table, i.e. a roulette wheel with a betting table ; uses create_wheel from Wheel.'''
+    wheel = create_wheel()
+    table = Table(wheel)
+    return table
