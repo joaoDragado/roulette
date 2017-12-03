@@ -9,8 +9,17 @@ class Player(object):
     Places bets on Outcomes, updates the stake with amounts won and lost.
     Uses Table to place bets on Outcomes; used by Game to record wins and losses.
     '''
-    def __init__(self):
-        pass
+    def __init__(self, table, stake=100, roundsToGo=100):
+        '''Constructs the Player with a specific Table for placing Bets.
+        stake : The player’s current stake. Initialized to the player’s starting budget.
+        roundsToGo : Initialized by the overall simulation control to the maximum number of rounds to play.
+        active : indicates whether player is playing ; defaults to True.
+        '''
+        self.table = table
+        self.stake = stake
+        self.roundsToGo = roundsToGo
+        self.active = True
+
     
     def placeBets(self):
         '''Updates the Table with the various bets. This version creates a Bet instance from the black Outcome. 
