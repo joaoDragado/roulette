@@ -10,7 +10,7 @@ BinBuilder().buildBins(wheel)
 low = Bet(100, wheel.getOutcome('Low'))
 dzero = Bet(100, wheel.getOutcome('00'))
 bets = [low, dzero]
-tbl = Table()
+tbl = Table(wheel)
 
 
 def test_iter():
