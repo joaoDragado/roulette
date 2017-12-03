@@ -9,9 +9,10 @@ class Table(object):
 
     We will want to segregate validation as a separate method, or sequence of methods. This is used by the Game just prior to spinning the wheel 
     '''
-    def __init__(self, minimum=0, limit=10000):
+    def __init__(self, wheel, minimum=0, limit=10000):
         # container for all bets
         self.bets = []
+        self.wheel = wheel
         self.minimum = minimum
         self.limit = limit
 
