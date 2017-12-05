@@ -9,15 +9,15 @@ class Player(object):
     Places bets on Outcomes, updates the stake with amounts won and lost.
     Uses Table to place bets on Outcomes; used by Game to record wins and losses.
     '''
-    def __init__(self, table, stake=100, roundsToGo=100):
+    def __init__(self, table, stake=100, spins=100):
         '''Constructs the Player with a specific Table for placing Bets.
         stake : The player’s current stake. Initialized to the player’s starting budget.
-        roundsToGo : Initialized by the overall simulation control to the maximum number of rounds to play.
+        spins : Initialized by the overall simulation control to the maximum number of rounds to play.
         active : indicates whether player is playing ; defaults to True.
         '''
         self.table = table
         self.stake = stake
-        self.roundsToGo = roundsToGo
+        self.spins = spins
         self.active = True
 
     
@@ -27,13 +27,14 @@ class Player(object):
         pass
     
     def win(self, bet):
-        '''Notification from the Game that the Bet was a winner. 
-        The amount of money won is available via the
-        winAmount() method of theBet.'''
-        pass
+        '''Called by Game.cycle when the player won
+        the bet. Calculate amount won (via the
+        winAmount() method of theBet) & 
+        update player\s stake.'''
+        self.stake += bet.winAmount()
     
     def lose(self, bet):
-        '''Notification from the Game that the Bet was a loser.'''
+        '''Placeholder method. the amount wagered was deducted from player\s stake when bet was placed.'''
         pass
 
 
