@@ -14,18 +14,56 @@ class Player(object):
         stake : The player’s current stake. Initialized to the player’s starting budget.
         spins : Initialized by the overall simulation control to the maximum number of rounds to play.
         active : indicates whether player is playing ; defaults to True.
+        cash_out : indicates that player exits simulation.
         '''
         self.table = table
         self.stake = stake
         self.spins = spins
         self.active = True
+        self.cash_out = False
 
-    
+    def set_spins(self, spins):
+        '''Sets the total number of rounds for the player\s run.'''
+        self.spins = spins
+
+    def set_stake(self, amount):
+        '''Set the initial stake of the player'''
+        self.stake = amount
+
+    def eligible(self):
+        '''checks player eligibility : returns boolean if player can continue.'''
+        return self.active & (not self.cash_out) & (self.stake > 0)
+
+    def set_bet(self):
+        '''picks the next bet that the player wages on.'''
+        pass
+
+    def check_bet(self, bet):
+        '''checks that the bet complies with table limits & is within player\s stake.'''
+        return (bet.amount <= self.stake) & self.table.isValid(bet) 
+
     def placeBets(self):
         '''Updates the Table with the various bets. This version creates a Bet instance from the black Outcome. 
         It uses Table placeBet() to place that bet.'''
-        pass
-    
+        # check the simulation is not over
+        if self.spins <= 0 :
+            self.cash_out = True
+        # participate in roulette round
+        self.spins -= 1
+        # check player eligibility
+        if not self.eligible():
+            return
+        # fetch bet
+        bet = self.set_bet()
+        # check bet eligibility
+        if self.check_bet(bet):
+            # place bet on roulette table
+            self.table.placeBet(bet)
+            # remove wager from player\s stake.
+            self.stake -= bet.amount
+        else : 
+            return
+
     def win(self, bet):
         '''Called by Game.cycle when the player won
         the bet. Calculate amount won (via the
@@ -55,7 +93,7 @@ class Passenger57(object):
     def placeBets(self):
         '''Updates the Table with the various bets. This version creates a Bet instance from the black Outcome. 
         It uses Table.placeBet() to place that bet.'''
-        onBlack = Bet(amount=1, self.black)
+        onBlack = Bet(amount=1, outcome=self.black)
         self.table.placeBet(onBlack)
 
     
