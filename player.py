@@ -55,14 +55,13 @@ class Player(object):
             return
         # fetch bet
         bet = self.set_bet()
-        # check bet eligibility
-        if self.check_bet(bet):
-            # place bet on roulette table
-            self.table.placeBet(bet)
-            # remove wager from player\s stake.
-            self.stake -= bet.amount
-        else : 
+        # check bet eligibility ; if bet not compliant, exit
+        if not self.check_bet(bet):
             return
+        # place bet on roulette table
+        self.table.placeBet(bet)
+        # remove wager from player\s stake.
+        self.stake -= bet.amount
 
     def win(self, bet):
         '''Called by Game.cycle when the player won
@@ -73,6 +72,14 @@ class Player(object):
     
     def lose(self, bet):
         '''Placeholder method. the amount wagered was deducted from player\s stake when bet was placed.'''
+        pass
+
+    def win_streak(self, next_bet):
+        '''action to perform when on a winning streak, i.e. after 1+ wins.'''
+        pass
+
+    def losing_streak(self, next_bet):
+        '''action to perform when on a losing streak, i.e. after 1+ losses.'''
         pass
 
 
