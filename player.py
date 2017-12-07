@@ -1,5 +1,3 @@
-from .outcome import Outcome
-from .wheel import Wheel
 from .table import Table
 from .bet import Bet
 
@@ -69,47 +67,45 @@ class Player(object):
         winAmount() method of theBet) & 
         update player\s stake.'''
         self.stake += bet.winAmount()
+        self.after_win(bet)
     
     def lose(self, bet):
         '''Placeholder method. the amount wagered was deducted from player\s stake when bet was placed.'''
-        pass
+        self.after_loss(bet)
 
-    def win_streak(self, next_bet):
+    def after_win(self, bet):
         '''action to perform when on a winning streak, i.e. after 1+ wins.'''
         pass
 
-    def losing_streak(self, next_bet):
+    def after_loss(self, bet):
         '''action to perform when on a losing streak, i.e. after 1+ losses.'''
         pass
 
 
-class Passenger57(object):
+class Passenger57(Player):
     '''Passenger57 constructs a Bet based on the Outcome named "Black". A player with a 1-track mind.'''
     
-    def __init__(self, table=Table(), wheel=Wheel()):
-        '''Constructs the Player with a specific table for placing bets. 
-        This also creates the “black” Outcome. 
-        This is saved in a variable named Passenger57.black for use in creating bets.
+    bet_amount = 1
+
+    def __init__(self, **kwargs):
+        '''Constructs the Player with a specific table for placing bets.
+        Sets up container lists to record wins & losses  
         '''
+        super().__init__(**kwargs)
         # by querying the wheel
-        #self.black = Wheel().getOutcome('Black')
-        self.black = Outcome('Black', 1)
-        self.wheel = wheel
-        self.table = table
+        self.black = self.table.wheel.getOutcome('Black')
+        self.wins = list()
+        self.losses = list()
+        
+    def set_bet(self):
+        '''Passenger57 always places the same bet on black.'''
+        return Bet(self.bet_amount, self.black)
 
-    def placeBets(self):
-        '''Updates the Table with the various bets. This version creates a Bet instance from the black Outcome. 
-        It uses Table.placeBet() to place that bet.'''
-        onBlack = Bet(amount=1, outcome=self.black)
-        self.table.placeBet(onBlack)
+    def after_win(self, bet):
+        '''appends winning amount to self.wins'''
+        self.wins.append(bet.winAmount())
 
-    
-    def win(self, bet):
-        '''Notification from the Game that the Bet was a winner. 
-        The amount of money won is available via the
-        winAmount() method of the Bet.'''
-        return f'Bet wins {bet.winAmount()}.'
-    
-    def lose(self, bet):
-        '''Notification from the Game that the Bet was a loser.'''
-        return 'Bet loses.'
+    def after_loss(self, bet):
+        '''appends losing amount to self.losses'''
+        self.losses.append(bet.amount)
+
