@@ -19,17 +19,17 @@ class Player(object):
         self.active = True
         self.cash_out = False
 
-    def set_spins(self, roundsToGo):
+    def setRounds(self, roundsToGo):
         '''Sets the total number of rounds for the players run.'''
         self.roundsToGo = roundsToGo
 
-    def set_stake(self, amount):
+    def setStake(self, amount):
         '''Set the initial stake of the player'''
         self.stake = amount
 
     def playing(self):
         '''checks player status : returns boolean if player can continue.'''
-        return self.active & (not self.cash_out) & (self.stake > 0)
+        return self.active & (not self.cash_out) & (self.stake >= self.table.minimum)
 
     def set_bet(self):
         '''picks the next bet that the player wages on.'''
