@@ -40,7 +40,7 @@ class Game(object):
         # clear table of all bets
         self.table.bets.clear()
 
-
+        
 def create_game(rng=None, seed=None):
     '''creates a new roulette game , with its own Table-Wheel.
     the keyword arguments for random generator and seed value relate to the wheel. Returns a Game class object.'''

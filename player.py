@@ -139,3 +139,11 @@ class Martingale(Player):
     def after_loss(self, _):
         '''increase lossCount by 1'''
         self.lossCount += 1
+
+
+def create_player(player_class, table, stake, duration):
+    '''Create a new player of a particular class of betting strategy.'''
+    player = player_class(table=table)
+    player.setRounds(duration)
+    player.setStake(stake)
+    return player
