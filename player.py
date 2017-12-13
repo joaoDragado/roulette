@@ -132,8 +132,8 @@ class Martingale(Player):
         return Bet(running_amount, self.black)
 
     def after_win(self, _):
-        '''reset lossCount to 1'''
-        self.lossCount = 1
+        '''reset lossCount to 0'''
+        self.lossCount = 0
 
         
     def after_loss(self, _):

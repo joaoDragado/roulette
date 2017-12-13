@@ -1,4 +1,4 @@
-from .wheel import Wheel
+from .wheel import Wheel, create_wheel
 from .table import Table
 
 
