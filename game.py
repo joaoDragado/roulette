@@ -23,14 +23,18 @@ class Game(object):
         3. call theTable‘s iterator to get an Iterator over the Bets. If the winning Bin contains the Outcome, call the thePlayer win() method otherwise call the thePlayer lose() method.
         - the player.playing() is called twice , so that we follow the true life sequence of roulette events, while allowing for the wheel to spin even if the player is not participating.
         '''
-        # if player active, place bets
-        if player.playing():
-            player.placeBets()
-        # spin the roulette wheel
-        winningBin =  self.table.wheel.next()
+        # check the simulation is not over
+        if player.roundsToGo < 1:
+            player.cash_out = True
+        
         # if player inactive , exit
         if not player.playing():
             return
+                # if player active, place bets
+        if player.playing():
+            player.placeBets()
+            # spin the roulette wheel
+        winningBin =  self.table.wheel.next()
         # iterate over all bets
         for bet in self.table:
             if bet.outcome in winningBin:
@@ -39,6 +43,7 @@ class Game(object):
                 player.lose(bet)
         # clear table of all bets
         self.table.bets.clear()
+        #player.roundsToGo -= 1
 
         
 def create_game(rng=None, seed=None):

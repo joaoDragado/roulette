@@ -44,13 +44,13 @@ class Player(object):
         '''Updates the Table with the various bets. This version creates a Bet instance from the black Outcome.
         It uses Table placeBet() to place that bet.'''
         # check the simulation is not over
-        if self.roundsToGo < 1:
+        if self.roundsToGo <= 0:
             self.cash_out = True
-        #    self.active = False
+            self.active = False
         # participate in roulette round
         self.roundsToGo -= 1
         # check player status
-        if self.cash_out:
+        if not self.playing():
             return
         # fetch bet
         bet = self.set_bet()
