@@ -56,6 +56,7 @@ class Player(object):
         bet = self.set_bet()
         # check bet eligibility ; if bet not compliant, exit
         if not self.check_bet(bet):
+            self.active = False 
             return
         # place bet on roulette table
         self.table.placeBet(bet)

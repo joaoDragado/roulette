@@ -31,6 +31,7 @@ class Simulator(object):
 		List of stake values. The List of individual stake values is returned as the result of the session of play'''
 		stakes = list()
 		player = create_player(self.player_class, self.game.table, self.init_stake, self.init_duration)
+		print(f'Player playing status : {player.playing()}')
 		while player.playing():
 			stakes.append(player.stake)
 			self.game.cycle(player)
