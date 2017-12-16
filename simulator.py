@@ -46,3 +46,10 @@ class Simulator(object):
 			stakes = self.session()
 			self.durations.append(len(stakes))
 			self.maxima.append(max(stakes))
+		# save output to respective tsv files
+		# each line represent 1 simulation (the data from samples * sessions)
+		with open('durations.tsv', 'at') as f:
+		    f.write('\t'.join(str(i) for i in self.durations)+'\n')
+		with open('maxima.tsv', 'at') as f:
+		    f.write('\t'.join(str(i) for i in self.maxima)+'\n')
+
