@@ -103,4 +103,3 @@ venv.bak/
 
 # mypy
 .mypy_cache/
-copy of player.py

@@ -35,6 +35,8 @@ class Game(object):
             player.placeBets()
             # spin the roulette wheel
         winningBin =  self.table.wheel.next()
+        # notify player of the winning Outcomes
+        player.winners(winningBin)
         # iterate over all bets
         for bet in self.table:
             if bet.outcome in winningBin:

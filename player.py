@@ -83,6 +83,10 @@ class Player(object):
         '''action to perform when player losses.'''
         pass
 
+    def winners(self):
+        '''The set of Outcome instances that are part of the current win. Overriden by certain sublasses.'''
+        pass
+
 
 class Passenger57(Player):
     '''Passenger57 constructs a Bet based on the Outcome named "Black". A player with a 1-track mind.'''
@@ -93,13 +97,13 @@ class Passenger57(Player):
         Sets up container lists to record wins & losses. '''
         super().__init__(**kwargs)
         # by querying the wheel
-        self.black = self.table.wheel.getOutcome('Black')
+        self._black = self.table.wheel.getOutcome('Black')
         self.wins = list()
         self.losses = list()
 
     def set_bet(self):
         '''Passenger57 always places the same bet on black.'''
-        return Bet(self.bet_amount, self.black)
+        return Bet(self.bet_amount, self._black)
 
     def after_win(self, bet):
         '''appends winning amount to self.wins'''
@@ -122,7 +126,7 @@ class Martingale(Player):
         betMultiple : the bet multiplier ; starts at 1,  doubled in each loss ; reset to 1 on each win. 
         This is always equal to 2^(lossCount) .'''
         super().__init__(**kwargs)
-        self.black = self.table.wheel.getOutcome('Black')
+        self._black = self.table.wheel.getOutcome('Black')
         self.lossCount = 0
         # this is easier to exist inside set_bet
         #self.betMultiple = 2**(self.lossCount)
@@ -130,7 +134,7 @@ class Martingale(Player):
     def set_bet(self):
         '''always bets on black, the amount determined by the lossCount'''
         running_amount = (2**(self.lossCount)) * self.bet_amount 
-        return Bet(running_amount, self.black)
+        return Bet(running_amount, self._black)
 
     def after_win(self, _):
         '''reset lossCount to 0'''
@@ -140,6 +144,33 @@ class Martingale(Player):
     def after_loss(self, _):
         '''increase lossCount by 1'''
         self.lossCount += 1
+
+
+class SevenReds(Martingale):
+    '''SevenReds is a Martingale player who places bets in Roulette. 
+    This player waits until the wheel has spun red seven times in a row before betting black.'''
+    
+    def __init__(self, **kwargs):
+        '''redCount : The number of reds yet to go. This starts at 7 , is reset to 7 on each non-red outcome, and decrements by 1 on each red outcome.'''
+        super().__init__(**kwargs)
+        self.redCount = 7
+        self._red = self.table.wheel.getOutcome('Red')
+        self._black = self.table.wheel.getOutcome('Black')
+
+    def winners(self,outcomes):
+        '''The game will notify a player of each spin using this method. This will be invoked even if the player places no bets.'''
+        if self._red in outcomes:
+            self.redCount -= 1
+        else:
+            self.redCount = 7
+
+    def set_bet(self):
+        '''If redCount is zero, this places a bet on black, using the bet multiplier.'''
+        if self.redCount == 0 :
+            running_amount = (2**(self.lossCount)) * self.bet_amount 
+            return Bet(running_amount, self._black)
+
+        
 
 
 def create_player(player_class, table, stake, duration):
