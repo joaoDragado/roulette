@@ -174,7 +174,11 @@ class SevenReds(Martingale):
 
 
 def create_player(player_class, table, stake, duration):
-    '''Create a new player of a particular class of betting strategy.'''
+    '''Create a new player of a particular class of betting strategy.
+    If player_class defined as string, use the commented code below :
+    '''
+    #player_class_name = globals()[player_class]
+    #player = player_class_name(table=table)
     player = player_class(table=table)
     player.setRounds(duration)
     player.setStake(stake)
