@@ -29,3 +29,9 @@ b.show()
 # instance = my_class() 
 # 
 # Both module_name and class_name have to be strings in the above code.
+# 
+# 2. using sys.modules
+# import sys
+# 
+# my_class = getattr(sys.modules[__name__], class_name)
+# instance = my_class() 

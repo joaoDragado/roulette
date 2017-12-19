@@ -20,11 +20,11 @@ class Table(object):
     def isValid(self, bet):
         '''Evaluates bet on house limits :
         - The sum of all bets is less than or equal to the table limit.
-        - All bet amounts are greater than or equal to the table minimum.'''
+        - All bet amounts are greater than or equal to the table minimum.(removed)'''
         pot = bet.amount
         for i in self.bets:
             pot += i.amount
-        return (self.minimum <= bet.amount ) & (pot <= self.limit )
+        return pot <= self.limit 
 
     def placeBet(self, bet):
         '''Adds this bet to the list of working bets.

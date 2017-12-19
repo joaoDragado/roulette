@@ -83,7 +83,7 @@ class Player(object):
         '''action to perform when player losses.'''
         pass
 
-    def winners(self):
+    def winners(self, outcomes):
         '''The set of Outcome instances that are part of the current win. Overriden by certain sublasses.'''
         pass
 
