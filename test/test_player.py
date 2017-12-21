@@ -1,5 +1,5 @@
 import pytest
-from ..player import Passenger57, Martingale, create_player
+from ..player import Passenger57, Martingale, create_player, SevenReds
 from ..table import  Table, create_table
 from ..wheel import  create_wheel
 from ..non_rnd import Non_rnd
@@ -63,3 +63,31 @@ def test_martingale_lucky():
     game.cycle(player)
     # win, bet 10
     assert player.stake == 230
+
+
+def test_seven_reds():
+
+    spins = [1]*7 + [2] + [1]*9
+    game = create_game(rng=Non_rnd(spins))
+    player = create_player(SevenReds, game.table)
+
+    for i in range(7):
+        game.cycle(player)
+    assert player.stake == 100
+
+    game.cycle(player)
+    assert player.stake == 110
+
+    for i in range(7):
+        game.cycle(player)
+    assert player.stake == 110
+
+    game.cycle(player)
+    assert player.stake == 100
+
+    game.cycle(player)
+    assert player.stake == 80
+
+
+
+

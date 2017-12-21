@@ -55,13 +55,14 @@ class Player(object):
         # fetch bet
         bet = self.set_bet()
         # check bet eligibility ; if bet not compliant, exit
-        if not self.check_bet(bet):
-            self.active = False 
-            return
-        # place bet on roulette table
-        self.table.placeBet(bet)
-        # remove wager from players stake.
-        self.stake -= bet.amount
+        if bet:
+            if not self.check_bet(bet):
+                self.active = False 
+                return
+            # place bet on roulette table
+            self.table.placeBet(bet)
+            # remove wager from players stake.
+            self.stake -= bet.amount
 
     def win(self, bet):
         '''Called by Game.cycle when the player won
@@ -166,14 +167,14 @@ class SevenReds(Martingale):
 
     def set_bet(self):
         '''If redCount is zero, this places a bet on black, using the bet multiplier.'''
-        if self.redCount == 0 :
+        if self.redCount <= 0 :
             running_amount = (2**(self.lossCount)) * self.bet_amount 
             return Bet(running_amount, self._black)
 
         
 
 
-def create_player(player_class, table, stake, duration):
+def create_player(player_class, table, stake=100, duration=100):
     '''Create a new player of a particular class of betting strategy.
     If player_class defined as string, use the commented code below :
     '''
