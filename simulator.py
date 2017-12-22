@@ -2,6 +2,7 @@ from .player import create_player
 from .wheel import create_wheel
 from .table import Table
 from .game import Game
+from .statistics import IntegerStatistics
 
 class Simulator(object):
 	'''Simulator exercises the Roulette simulation with a given Player placing bets. It reports raw statistics on a number
@@ -19,8 +20,8 @@ class Simulator(object):
 		self.init_duration = init_duration
 		self.init_stake = init_stake
 		self.samples = samples
-		self.durations = list()
-		self.maxima = list()
+		self.durations = IntegerStatistics()
+		self.maxima = IntegerStatistics()
 
 	def session(self):
 		'''Executes a single game session. 
@@ -52,4 +53,31 @@ class Simulator(object):
 		    f.write('\t'.join(str(i) for i in self.durations)+'\n')
 		with open('maxima.tsv', 'at') as f:
 		    f.write('\t'.join(str(i) for i in self.maxima)+'\n')
+
+def run_simulation(init_duration=250, init_stake=100, samples=50, player):
+	'''Executes a simulation & provides descriptive statistics of the results.'''
+	game = create_game()
+	simulator = Simulator(game, player_class=player, init_duration=init_duration, init_stake=init_stake, samples=samples)
+	simulator.gather()
+	print('-'*10)
+	print(f'Player Type : {player} | Initial Stake : {init_stake}')
+	print(f'Iterations (No. of Sessions) : {samples}')
+	print('-'*10)
+	print(f'Session Length (Roulette Spins) Statistics :')
+	print(f'Minimum Session Length : {min(simulator.durations)}')
+	print(f'Maximum Session Length : {max(simulator.durations)}')
+	print(f'Mean Session Length : {simulator.durations.mean()}')
+	print(f'Standard Deviation of Session Length : {simulator.durations.stdev()}')
+	print('-'*10)
+	print(f'Player Final Stake Statistics :')
+	print(f'Minimum Final Stake : {min(simulator.maxima)}')
+	print(f'Maximum Final Stake : {max(simulator.maxima)}')
+	print(f'Mean Final Stake : {simulator.maxima.mean()}')
+	print(f'Standard Deviation of Final Stake : {simulator.maxima.stdev()}')
+	 
+	
+	
+
+	
+	
 
