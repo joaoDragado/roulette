@@ -176,14 +176,14 @@ class SevenReds(Martingale):
 class PlayerRandom(Player):
     '''PlayerRandom is a subclass of Player who places bets in Roulette. This player makes random bets around the layout.'''
 
-    def __init__(self, **kwargs, rng=None, seed=None):
+    def __init__(self, rng=None, seed=None, **kwargs):
         '''Inherits all arguments for Player superclass.
         Includes a random generator argument purely for mock testing purposes, identical to the one in the Wheel class.'''
-        super().__init__(**kwargs)
         if rng is None:
             rng = random.Random()
             rng.seed(seed)
         self.rng = rng
+        super().__init__(**kwargs)
         
 
     def set_bet(self):
