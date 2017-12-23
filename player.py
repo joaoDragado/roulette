@@ -1,3 +1,4 @@
+import random
 from .bet import Bet
 
 # this will act as a superclass to individual player types.
@@ -172,6 +173,23 @@ class SevenReds(Martingale):
             return Bet(running_amount, self._black)
 
         
+class PlayerRandom(Player):
+    '''PlayerRandom is a subclass of Player who places bets in Roulette. This player makes random bets around the layout.'''
+
+    def __init__(self, **kwargs):
+        '''Constructs the Player with a specific table for placing bets.
+        Sets up container lists to record wins & losses. '''
+        super().__init__(**kwargs)
+
+    def set_bet(self):
+        '''choose at random 1 outcome out of all 152 discrete outcomes.
+        These are located in the dict wheel.all_outcomes in the form of the structure OutcomeName : Outcome.
+        We obtain the outcomes by calling the iterator dict.values and wrapping it in a list for random.choice.
+        We then set & return the Bet.'''
+        rnd_outcome = random.choice(list(self.table.wheel.all_outcomes.values()))
+        return Bet(self.bet_amount, rnd_outcome)
+
+
 
 
 def create_player(player_class, table, stake=100, duration=100):
