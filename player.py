@@ -176,17 +176,22 @@ class SevenReds(Martingale):
 class PlayerRandom(Player):
     '''PlayerRandom is a subclass of Player who places bets in Roulette. This player makes random bets around the layout.'''
 
-    def __init__(self, **kwargs):
-        '''Constructs the Player with a specific table for placing bets.
-        Sets up container lists to record wins & losses. '''
+    def __init__(self, **kwargs, rng=None, seed=None):
+        '''Inherits all arguments for Player superclass.
+        Includes a random generator argument purely for mock testing purposes, identical to the one in the Wheel class.'''
         super().__init__(**kwargs)
+        if rng is None:
+            rng = random.Random()
+            rng.seed(seed)
+        self.rng = rng
+        
 
     def set_bet(self):
         '''choose at random 1 outcome out of all 152 discrete outcomes.
         These are located in the dict wheel.all_outcomes in the form of the structure OutcomeName : Outcome.
         We obtain the outcomes by calling the iterator dict.values and wrapping it in a list for random.choice.
         We then set & return the Bet.'''
-        rnd_outcome = random.choice(list(self.table.wheel.all_outcomes.values()))
+        rnd_outcome = self.rng.choice(list(self.table.wheel.all_outcomes.values()))
         return Bet(self.bet_amount, rnd_outcome)
 
 
