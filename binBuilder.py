@@ -1,4 +1,4 @@
-from .outcome import Outcome
+from outcome import Outcome
 import inspect
 
 class BinBuilder(object):

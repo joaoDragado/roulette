@@ -1,5 +1,5 @@
 import pytest
-from ..statistics import IntegerStatistics
+from statistics import IntegerStatistics
 
 sample =  [10, 8, 13, 9, 11, 14, 6 , 4, 12, 7 , 5]
 

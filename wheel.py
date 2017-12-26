@@ -1,6 +1,6 @@
 import random
-from .bin import Bin
-from .binBuilder import BinBuilder
+from bin import Bin
+from binBuilder import BinBuilder
 
 class Wheel(object):
     ''' Wheel Class

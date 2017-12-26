@@ -1,8 +1,8 @@
 import pytest
-from ..simulator import Simulator
-from ..game import create_game
-from ..player import Passenger57
-from ..non_rnd import Non_rnd
+from simulator import Simulator
+from game import create_game
+from player import Passenger57
+from non_rnd import Non_rnd
 
 # 3 blacks, 2 reds, 1 black, 4 reds, 1 black, 1 red, 2 blacks, 1 red
 mix = [2,3,4,5,2, 2,4,2,3,5, 3,5,2,4,2]

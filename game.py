@@ -1,5 +1,5 @@
-from .wheel import Wheel, create_wheel
-from .table import Table
+from wheel import Wheel, create_wheel
+from table import Table
 
 
 class Game(object):

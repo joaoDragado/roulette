@@ -1,6 +1,6 @@
 import pytest
-from ..outcome import Outcome
-from ..bin import Bin
+from outcome import Outcome
+from bin import Bin
 
 o1 = Outcome('0', 35)
 o2 = Outcome('00', 35)

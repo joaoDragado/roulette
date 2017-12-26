@@ -1,8 +1,8 @@
 import pytest
-from ..table import Table
-from ..bet import Bet
-from ..binBuilder import BinBuilder
-from ..wheel import Wheel
+from table import Table
+from bet import Bet
+from binBuilder import BinBuilder
+from wheel import Wheel
 
 wheel = Wheel()
 BinBuilder().buildBins(wheel)

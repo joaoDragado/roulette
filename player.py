@@ -1,5 +1,5 @@
 import random
-from .bet import Bet
+from bet import Bet
 
 # this will act as a superclass to individual player types.
 class Player(object):
@@ -210,7 +210,7 @@ class Player1236(Player):
     The multiplier is always applied to the initial bet amount.
     '''
     def __init__(self, **kwargs):
-        from .player1236 import Player1326NoWins 
+        from player1236 import Player1326NoWins 
         '''Initializes the state and the outcome. 
         The state is set to the initial state of an instance of Player1326NoWins.
         The outcome is set to some even money proposition, e.g. "High".'''

@@ -1,8 +1,8 @@
-from .player import create_player
-from .wheel import create_wheel
-from .table import Table
-from .game import Game
-from .statistics import IntegerStatistics
+from player import create_player
+from wheel import create_wheel
+from table import Table
+from game import Game
+from statistics import IntegerStatistics
 
 class Simulator(object):
 	'''Simulator exercises the Roulette simulation with a given Player placing bets. It reports raw statistics on a number

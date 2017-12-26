@@ -1,5 +1,5 @@
 import pytest
-from ..outcome import Outcome
+from outcome import Outcome
 
 o1 = Outcome("Red", 1)
 o2 = Outcome("Red", 2)

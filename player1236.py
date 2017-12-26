@@ -1,4 +1,4 @@
-from .bet import Bet
+from bet import Bet
 
 
 class Player1236State(object):

@@ -1,8 +1,8 @@
 import pytest
-from ..outcome import Outcome
-from ..bin import Bin
-from ..wheel import Wheel
-from ..non_rnd import Non_rnd
+from outcome import Outcome
+from bin import Bin
+from wheel import Wheel
+from non_rnd import Non_rnd
 
 # outcomes
 o0 = Outcome('0', 35)

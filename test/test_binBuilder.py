@@ -1,7 +1,7 @@
 import pytest
-from ..outcome import Outcome
-from ..wheel import Wheel
-from ..binBuilder import BinBuilder
+from outcome import Outcome
+from wheel import Wheel
+from binBuilder import BinBuilder
 
 wheel = Wheel()
 bb = BinBuilder()

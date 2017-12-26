@@ -1,5 +1,5 @@
-from .bet import InvalidBet
-from .wheel import create_wheel
+from bet import InvalidBet
+from wheel import create_wheel
 
 class Table(object):
     '''

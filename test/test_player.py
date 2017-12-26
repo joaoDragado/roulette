@@ -1,9 +1,9 @@
 import pytest
-from ..player import Passenger57, Martingale, create_player, SevenReds
-from ..table import  Table, create_table
-from ..wheel import  create_wheel
-from ..non_rnd import Non_rnd
-from ..game import Game, create_game
+from player import Passenger57, Martingale, create_player, SevenReds
+from table import  Table, create_table
+from wheel import  create_wheel
+from non_rnd import Non_rnd
+from game import Game, create_game
 
 # all black sequence
 blacks = [20,6,15,31,2,10]

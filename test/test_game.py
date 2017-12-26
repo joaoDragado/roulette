@@ -1,8 +1,8 @@
 import pytest
-from ..player import create_player, Passenger57
-from ..wheel import create_wheel
-from ..game import create_game
-from ..non_rnd import Non_rnd
+from player import create_player, Passenger57
+from wheel import create_wheel
+from game import create_game
+from non_rnd import Non_rnd
 
 
 def test_roulette_game():

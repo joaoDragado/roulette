@@ -1,8 +1,8 @@
 import pytest
-from ..outcome import Outcome
-from ..bet import Bet
-from ..binBuilder import BinBuilder
-from ..wheel import create_wheel
+from outcome import Outcome
+from bet import Bet
+from binBuilder import BinBuilder
+from wheel import create_wheel
 
 wheel = create_wheel()
 
