@@ -195,15 +195,58 @@ class PlayerRandom(Player):
         return Bet(self.bet_amount, rnd_outcome)
 
 
+class Player1236(Player):
+    '''Player1326 follows the 1-3-2-6 betting system. The player has a preferred Outcome (any even money bet - e.g. High).
+    The amount wagered stems from the current betting state.
+    The possible states are :
+    
+    Current state   Multiplier   On Win         On Loss
+    ---------------------------------------------------
+    No Wins         1            One Win        No Wins
+    One Win         3            Two Wins       No Wins
+    Two Wins        2            Three Wins     No Wins
+    Three Wins      6            No Wins        No Wins
+    
+    The multiplier is always applied to the initial bet amount.
+    '''
+    def __init__(self, **kwargs):
+        from .player1236 import Player1326NoWins 
+        '''Initializes the state and the outcome. 
+        The state is set to the initial state of an instance of Player1326NoWins.
+        The outcome is set to some even money proposition, e.g. "High".'''
+        super().__init__(**kwargs)
+        self.outcome = self.table.wheel.getOutcome('High')
+        self.state = Player1326NoWins(self)
+
+    def set_bet(self):
+        '''Updates the Table with a bet created by the current state. 
+        This method delegates the bet creation to state object’s currentBet() method.'''
+        return self.state.currentBet()
+
+    def after_win(self, _):
+        '''Uses the superclass method to update the stake with an amount won. 
+        Uses the current state to determine what 
+        the next state will be (by calling state‘s objects nextWon() method ) and 
+        saving the new state in state.'''
+        self.state = self.state.nextWon()
+
+        
+    def after_loss(self, _):
+        '''Uses the current state to determine what the next state will be. 
+        This method delegates the next state decision to state object’s nextLost() method, saving the result in state.'''
+        self.state = self.state.nextLost()
+
+        
+        
 
 
-def create_player(player_class, table, stake=100, duration=100):
+def create_player(player_class, table, stake=100, duration=100, bet_amount=10):
     '''Create a new player of a particular class of betting strategy.
     If player_class defined as string, use the commented code below :
     '''
     #player_class_name = globals()[player_class]
     #player = player_class_name(table=table)
-    player = player_class(table=table)
+    player = player_class(table=table, bet_amount=bet_amount)
     player.setRounds(duration)
     player.setStake(stake)
     return player
